@@ -2,10 +2,10 @@ package com.electroninc.basicmusicquiz.question;
 
 import android.graphics.drawable.Drawable;
 
-import java.util.List;
+import java.util.Set;
 
 public class TextEntryQuestion extends Question {
-    public TextEntryQuestion(String questionText, Drawable imageAsset, List<String> answers) {
+    public TextEntryQuestion(String questionText, Drawable imageAsset, Set<String> answers) {
         super(questionText, imageAsset, answers);
     }
 }
