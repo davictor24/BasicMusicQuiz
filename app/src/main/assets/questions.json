@@ -1,3 +1,124 @@
 [
-
+  {
+    "type": "checkbox",
+    "question": "Which key signatures have no sharps or flats?",
+    "options": {
+      "A": "A major",
+      "B": "A minor",
+      "C": "C major",
+      "D": "C minor"
+    },
+    "answers": [
+      "B",
+      "C"
+    ]
+  },
+  {
+    "type": "radio",
+    "question": "What note is indicated below?",
+    "imageAsset": "f_sharp.png",
+    "options": {
+      "A": "G#",
+      "B": "C#",
+      "C": "F#"
+    },
+    "answers": [
+      "C"
+    ]
+  },
+  {
+    "type": "text",
+    "question": "What is the Italian musical term used for a gradual increase in the volume of successive notes?",
+    "answers": [
+      "Crescendo"
+    ]
+  },
+  {
+    "type": "radio",
+    "question": "What type of chord is shown below?",
+    "imageAsset": "diminished_chord.png",
+    "options": {
+      "A": "Major",
+      "B": "Minor",
+      "C": "Diminished",
+      "D": "Augmented"
+    },
+    "answers": [
+      "C"
+    ]
+  },
+  {
+    "type": "radio",
+    "question": "What time signature is also known as 'common time'?",
+    "options": {
+      "A": "4/4",
+      "B": "3/4",
+      "C": "2/2",
+      "D": "2/4"
+    },
+    "answers": [
+      "A"
+    ]
+  },
+  {
+    "type": "checkbox",
+    "question": "Pick any two keys which have the same key signature?",
+    "options": {
+      "A": "F# major",
+      "B": "F# minor",
+      "C": "Gb minor",
+      "D": "A major"
+    },
+    "answers": [
+      "B",
+      "D"
+    ]
+  },
+  {
+    "type": "checkbox",
+    "question": "Pick any two keys which have the same name?",
+    "options": {
+      "A": "C# major",
+      "B": "Eb major",
+      "C": "Db major",
+      "D": "C# minor"
+    },
+    "answers": [
+      "A",
+      "C"
+    ]
+  },
+  {
+    "type": "radio",
+    "question": "What ornamentation style is shown below?",
+    "imageAsset": "mordent.png",
+    "options": {
+      "A": "Trill",
+      "B": "Turn",
+      "C": "Mordent",
+      "D": "Appoggiatura"
+    },
+    "answers": [
+      "C"
+    ]
+  },
+  {
+    "type": "text",
+    "question": "What is the Italian musical term which refers to expressive and rhythmic freedom?",
+    "answers": [
+      "Rubato"
+    ]
+  },
+  {
+    "type": "radio",
+    "question": "For the below time signature, there would be four beats in a bar.",
+    "imageAsset": "3_4_time.png",
+    "options": {
+      "A": "True",
+      "B": "False"
+    },
+    "answers": [
+      "B"
+    ]
+  }
 ]
