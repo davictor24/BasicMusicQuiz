@@ -40,6 +40,7 @@ public class QuizActivity extends AppCompatActivity implements LoaderManager.Loa
         viewModel = ViewModelProviders.of(this).get(QuizViewModel.class);
         if (!viewModel.questionsSet)
             LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this);
+        else showQuestions();
     }
 
     @NonNull
@@ -50,21 +51,25 @@ public class QuizActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<Question>> loader, List<Question> data) {
-        quizLoading.setVisibility(View.GONE);
-        questionsViewPager.setVisibility(View.VISIBLE);
         viewModel.questionsSet = true;
         viewModel.questions = data;
         viewModel.totalQuestions = data.size();
-
-        List<QuestionFragment> questionFragments = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++)
-            questionFragments.add(QuestionFragment.newInstance(i));
-
-        QuestionsAdapter questionsAdapter = new QuestionsAdapter(getSupportFragmentManager(), questionFragments);
-        questionsViewPager.setAdapter(questionsAdapter);
+        showQuestions();
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<List<Question>> loader) {
+    }
+
+    private void showQuestions() {
+        List<QuestionFragment> questionFragments = new ArrayList<>();
+        for (int i = 0; i < viewModel.totalQuestions; i++)
+            questionFragments.add(QuestionFragment.newInstance(i));
+
+        QuestionsAdapter questionsAdapter = new QuestionsAdapter(getSupportFragmentManager(), questionFragments);
+        questionsViewPager.setAdapter(questionsAdapter);
+
+        quizLoading.setVisibility(View.GONE);
+        questionsViewPager.setVisibility(View.VISIBLE);
     }
 }

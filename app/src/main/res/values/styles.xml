@@ -12,7 +12,6 @@
     <style name="ButtonStyle" parent="android:style/Widget.Button">
         <item name="android:background">@color/colorAccent</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textAppearance">?android:textAppearanceLarge</item>
         <item name="android:foreground">?android:selectableItemBackground</item>
     </style>
 
