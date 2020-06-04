@@ -16,14 +16,10 @@
         android:id="@+id/start_quiz"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:foreground="?android:selectableItemBackground"
         android:gravity="center"
         android:padding="16dp"
         android:text="@string/start_quiz"
-        android:textAppearance="?android:textAppearanceLarge"
         android:textSize="40sp"
-        android:textColor="@android:color/white"
         tools:ignore="UnusedAttribute"
         android:layout_centerInParent="true" />
 

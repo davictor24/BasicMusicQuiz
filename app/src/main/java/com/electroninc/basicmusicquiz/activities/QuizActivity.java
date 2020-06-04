@@ -54,7 +54,6 @@ public class QuizActivity extends AppCompatActivity implements LoaderManager.Loa
         questionsViewPager.setVisibility(View.VISIBLE);
         viewModel.questionsSet = true;
         viewModel.questions = data;
-        viewModel.currentQuestion = 1;
         viewModel.totalQuestions = data.size();
 
         List<QuestionFragment> questionFragments = new ArrayList<>();

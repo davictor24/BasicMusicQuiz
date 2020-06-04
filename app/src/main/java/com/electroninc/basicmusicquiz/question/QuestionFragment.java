@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.electroninc.basicmusicquiz.QuizViewModel;
 import com.electroninc.basicmusicquiz.R;
@@ -12,6 +14,7 @@ import com.electroninc.basicmusicquiz.question.models.Question;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
 
 public class QuestionFragment extends Fragment {
 
@@ -50,8 +53,25 @@ public class QuestionFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        final int questionIndex = getQuestionIndex();
+        final QuizViewModel viewModel = getViewModel();
         Question question = getQuestion();
+
         // TODO: Populate view and set event listeners
+
+        Button button = view.findViewById(R.id.next_btn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (questionIndex >= viewModel.totalQuestions - 1)
+                    Toast.makeText(getContext(), "You have reached the end of the quiz!", Toast.LENGTH_LONG).show();
+                else ((ViewPager) getActivity().findViewById(R.id.questions_view_pager)).setCurrentItem(questionIndex + 1);
+            }
+        });
+    }
+
+    private int getQuestionIndex() {
+        return getArguments().getInt(QUESTION_INDEX);
     }
 
     private QuizViewModel getViewModel() {
@@ -59,7 +79,7 @@ public class QuestionFragment extends Fragment {
     }
 
     private Question getQuestion() {
-        int questionIndex = getArguments().getInt(QUESTION_INDEX);
+        int questionIndex = getQuestionIndex();
         return getViewModel().questions.get(questionIndex);
     }
 }

@@ -10,6 +10,5 @@ import androidx.lifecycle.ViewModel;
 public class QuizViewModel extends ViewModel {
     public boolean questionsSet = false;
     public List<Question> questions = new ArrayList<>();
-    public int currentQuestion = 0;
     public int totalQuestions = 0;
 }
