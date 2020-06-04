@@ -62,7 +62,7 @@
   },
   {
     "type": "checkbox",
-    "question": "Pick any two keys which have the same key signature?",
+    "question": "Pick any two keys which have the same key signature.",
     "options": {
       "A": "F# major",
       "B": "F# minor",
@@ -76,7 +76,7 @@
   },
   {
     "type": "checkbox",
-    "question": "Pick any two keys which have the same name?",
+    "question": "Pick any two keys which are equivalent.",
     "options": {
       "A": "C# major",
       "B": "Eb major",

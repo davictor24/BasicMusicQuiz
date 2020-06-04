@@ -3,6 +3,11 @@ package com.electroninc.basicmusicquiz.question;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
+import com.electroninc.basicmusicquiz.question.models.CheckBoxQuestion;
+import com.electroninc.basicmusicquiz.question.models.Question;
+import com.electroninc.basicmusicquiz.question.models.RadioButtonQuestion;
+import com.electroninc.basicmusicquiz.question.models.TextEntryQuestion;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +23,19 @@ import java.util.Map;
 import java.util.Set;
 
 public class QuestionUtils {
+
+    public static final int CHECK_BOX_QUESTION = 1;
+    public static final int RADIO_BUTTON_QUESTION = 2;
+    public static final int TEXT_ENTRY_QUESTION = 3;
+    public static final int UNKNOWN_QUESTION = 4;
+
+    public static int getQuestionType(Question question) {
+        if (question instanceof CheckBoxQuestion) return CHECK_BOX_QUESTION;
+        else if (question instanceof RadioButtonQuestion) return RADIO_BUTTON_QUESTION;
+        else if (question instanceof TextEntryQuestion) return TEXT_ENTRY_QUESTION;
+        else return UNKNOWN_QUESTION;
+    }
+
     public static List<Question> compileQuestions(Context context) throws JSONException, IOException {
         // Load JSON from assets folder
         // https://stackoverflow.com/a/19945484

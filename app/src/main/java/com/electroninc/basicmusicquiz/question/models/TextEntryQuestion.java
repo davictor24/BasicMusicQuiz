@@ -1,4 +1,4 @@
-package com.electroninc.basicmusicquiz.question;
+package com.electroninc.basicmusicquiz.question.models;
 
 import android.graphics.drawable.Drawable;
 

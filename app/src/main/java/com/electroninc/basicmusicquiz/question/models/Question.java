@@ -1,6 +1,8 @@
-package com.electroninc.basicmusicquiz.question;
+package com.electroninc.basicmusicquiz.question.models;
 
 import android.graphics.drawable.Drawable;
+
+import com.electroninc.basicmusicquiz.question.QuestionUtils;
 
 import java.util.HashSet;
 import java.util.Set;
