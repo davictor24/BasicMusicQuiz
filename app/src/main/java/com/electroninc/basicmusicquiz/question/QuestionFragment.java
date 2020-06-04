@@ -1,5 +1,6 @@
 package com.electroninc.basicmusicquiz.question;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.electroninc.basicmusicquiz.QuizViewModel;
 import com.electroninc.basicmusicquiz.R;
+import com.electroninc.basicmusicquiz.activities.ScoreActivity;
 import com.electroninc.basicmusicquiz.question.models.Question;
 
 import androidx.annotation.Nullable;
@@ -76,8 +78,11 @@ public class QuestionFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (finalQuestion)
-                    Toast.makeText(getContext(), "You have reached the end of the quiz!", Toast.LENGTH_LONG).show();
+                if (finalQuestion) {
+                    Intent intent = new Intent(getActivity(), ScoreActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
                 else
                     ((ViewPager) getActivity().findViewById(R.id.questions_view_pager)).setCurrentItem(questionIndex + 1);
             }
