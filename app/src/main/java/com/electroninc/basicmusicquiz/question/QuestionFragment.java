@@ -6,14 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.electroninc.basicmusicquiz.QuizViewModel;
 import com.electroninc.basicmusicquiz.R;
 import com.electroninc.basicmusicquiz.activities.ScoreActivity;
+import com.electroninc.basicmusicquiz.question.models.CheckBoxQuestion;
 import com.electroninc.basicmusicquiz.question.models.Question;
+import com.electroninc.basicmusicquiz.question.models.RadioButtonQuestion;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -69,7 +79,37 @@ public class QuestionFragment extends Fragment {
             imageView.setVisibility(View.VISIBLE);
         }
 
-        // TODO: Populate view and set event listeners
+        if (questionType == QuestionUtils.CHECK_BOX_QUESTION) {
+            CheckBoxQuestion checkBoxQuestion = (CheckBoxQuestion) question;
+            Map<String, String> checkBoxOptions = checkBoxQuestion.getOptions();
+            List<String> keys = new ArrayList<>(checkBoxOptions.keySet());
+            Collections.shuffle(keys);
+            LinearLayout parentLayout = view.findViewById(R.id.options);
+
+            for (String key : keys) {
+                // TODO: Add IDs
+                CheckBox checkBox = new CheckBox(getContext());
+                checkBox.setText(checkBoxOptions.get(key));
+                checkBox.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                parentLayout.addView(checkBox);
+            }
+        } else if (questionType == QuestionUtils.RADIO_BUTTON_QUESTION) {
+            // TODO: Debug the radio buttons
+            // TODO: Add IDs
+            RadioButtonQuestion radioQuestion = (RadioButtonQuestion) question;
+            Map<String, String> radioOptions = radioQuestion.getOptions();
+            List<String> keys = new ArrayList<>(radioOptions.keySet());
+            Collections.shuffle(keys);
+            RadioGroup parentLayout = view.findViewById(R.id.options);
+
+            for (String key : keys) {
+                RadioButton radio = new RadioButton(getContext());
+                radio.setText(radioOptions.get(key));
+                parentLayout.addView(radio);
+            }
+        }
 
         Button button = view.findViewById(R.id.next_btn);
         final boolean finalQuestion = questionIndex >= viewModel.totalQuestions - 1;
@@ -78,12 +118,12 @@ public class QuestionFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // TODO: Calculate new score and update view model
                 if (finalQuestion) {
                     Intent intent = new Intent(getActivity(), ScoreActivity.class);
                     startActivity(intent);
                     getActivity().finish();
-                }
-                else
+                } else
                     ((ViewPager) getActivity().findViewById(R.id.questions_view_pager)).setCurrentItem(questionIndex + 1);
             }
         });

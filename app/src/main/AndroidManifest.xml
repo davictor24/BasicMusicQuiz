@@ -23,6 +23,7 @@
             android:launchMode="singleTask" />
 
         <activity android:name=".activities.MainActivity"
+            android:label="@string/music_quiz"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
