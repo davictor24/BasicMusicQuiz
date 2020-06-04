@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.electroninc.basicmusicquiz.QuizViewModel;
@@ -54,18 +56,30 @@ public class QuestionFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         final int questionIndex = getQuestionIndex();
-        final QuizViewModel viewModel = getViewModel();
+        QuizViewModel viewModel = getViewModel();
         Question question = getQuestion();
+        int questionType = QuestionUtils.getQuestionType(question);
+
+        ((TextView) view.findViewById(R.id.question)).setText(question.getQuestionText());
+        if (question.getImageAsset() != null) {
+            ImageView imageView = view.findViewById(R.id.image_asset);
+            imageView.setImageDrawable(question.getImageAsset());
+            imageView.setVisibility(View.VISIBLE);
+        }
 
         // TODO: Populate view and set event listeners
 
         Button button = view.findViewById(R.id.next_btn);
+        final boolean finalQuestion = questionIndex >= viewModel.totalQuestions - 1;
+        if (finalQuestion) button.setText(R.string.finish);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (questionIndex >= viewModel.totalQuestions - 1)
+                if (finalQuestion)
                     Toast.makeText(getContext(), "You have reached the end of the quiz!", Toast.LENGTH_LONG).show();
-                else ((ViewPager) getActivity().findViewById(R.id.questions_view_pager)).setCurrentItem(questionIndex + 1);
+                else
+                    ((ViewPager) getActivity().findViewById(R.id.questions_view_pager)).setCurrentItem(questionIndex + 1);
             }
         });
     }

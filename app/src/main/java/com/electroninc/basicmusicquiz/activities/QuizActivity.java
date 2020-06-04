@@ -54,6 +54,7 @@ public class QuizActivity extends AppCompatActivity implements LoaderManager.Loa
         viewModel.questionsSet = true;
         viewModel.questions = data;
         viewModel.totalQuestions = data.size();
+        viewModel.score = 0;
         showQuestions();
     }
 

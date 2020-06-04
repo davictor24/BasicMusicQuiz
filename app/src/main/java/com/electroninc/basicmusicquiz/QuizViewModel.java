@@ -11,4 +11,5 @@ public class QuizViewModel extends ViewModel {
     public boolean questionsSet = false;
     public List<Question> questions = new ArrayList<>();
     public int totalQuestions = 0;
+    public int score = 0;
 }

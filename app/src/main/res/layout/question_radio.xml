@@ -22,21 +22,41 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Radio Question"
-                android:textSize="32sp" />
+                android:layout_margin="8dp"
+                tools:text="Radio Question"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/image_asset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:src="@mipmap/ic_launcher"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:visibility="gone"
+                android:contentDescription="@string/image_asset" />
+
+            <LinearLayout
+                android:id="@+id/options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical" />
 
             <Button
                 android:id="@+id/next_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="24dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="Next"
+                android:text="@string/next"
                 android:textSize="24sp"
                 tools:ignore="UnusedAttribute" />
 
