@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="option_A" type="id"/>
-    <item name="option_B" type="id"/>
-    <item name="option_C" type="id"/>
-    <item name="option_D" type="id"/>
+    <item name="option_A" type="id" />
+    <item name="option_B" type="id" />
+    <item name="option_C" type="id" />
+    <item name="option_D" type="id" />
 </resources>

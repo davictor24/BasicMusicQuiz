@@ -96,7 +96,7 @@ public class QuestionUtils {
     public static Map<String, String> jsonObjectToStringMap(JSONObject jsonObject) throws JSONException {
         Map<String, String> map = new HashMap<>();
         Iterator<String> keys = jsonObject.keys();
-        while(keys.hasNext()) {
+        while (keys.hasNext()) {
             String key = keys.next();
             String value = jsonObject.getString(key);
             map.put(key, value);
