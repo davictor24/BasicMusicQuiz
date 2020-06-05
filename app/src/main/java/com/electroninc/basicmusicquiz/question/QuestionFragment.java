@@ -96,6 +96,7 @@ public class QuestionFragment extends Fragment {
 
             for (final String key : keys) {
                 final CheckBox checkBox = new CheckBox(getContext());
+                checkBox.setId(getIdFromKey(key));
                 checkBox.setText(checkBoxOptions.get(key));
                 checkBox.setChecked(getCheckBoxState().get(key));
                 checkBox.setOnClickListener(new View.OnClickListener() {
@@ -116,13 +117,12 @@ public class QuestionFragment extends Fragment {
             RadioButtonQuestion radioQuestion = (RadioButtonQuestion) question;
             Map<String, String> radioOptions = radioQuestion.getOptions();
             List<String> keys = radioQuestion.getOptionsOrder();
-            RadioGroup parentLayout = view.findViewById(R.id.options);
+            final RadioGroup parentLayout = view.findViewById(R.id.options);
 
             for (final String key : keys) {
                 RadioButton radio = new RadioButton(getContext());
+                radio.setId(getIdFromKey(key));
                 radio.setText(radioOptions.get(key));
-                // TODO: Are radio button states saved by default?
-                // radio.setChecked(key.equals(getRadioButtonState()));
                 radio.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -131,6 +131,8 @@ public class QuestionFragment extends Fragment {
                 });
                 parentLayout.addView(radio);
             }
+            if (getRadioButtonState() != null)
+                parentLayout.check(getIdFromKey(getRadioButtonState()));
         }
 
         final Button button = view.findViewById(R.id.next_btn);
@@ -176,6 +178,10 @@ public class QuestionFragment extends Fragment {
     private Question getQuestion() {
         int questionIndex = getQuestionIndex();
         return getViewModel().questions.get(questionIndex);
+    }
+
+    private int getIdFromKey(String key) {
+        return getResources().getIdentifier("option_" + key, "id", getActivity().getPackageName());
     }
 
     private Map<String, Boolean> getCheckBoxState() {
