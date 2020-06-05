@@ -2,6 +2,7 @@ package com.electroninc.basicmusicquiz.question;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +21,11 @@ import com.electroninc.basicmusicquiz.question.models.CheckBoxQuestion;
 import com.electroninc.basicmusicquiz.question.models.Question;
 import com.electroninc.basicmusicquiz.question.models.RadioButtonQuestion;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -47,7 +48,7 @@ public class QuestionFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         int layoutResource;
@@ -68,9 +69,9 @@ public class QuestionFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         final int questionIndex = getQuestionIndex();
-        QuizViewModel viewModel = getViewModel();
-        Question question = getQuestion();
-        int questionType = QuestionUtils.getQuestionType(question);
+        final QuizViewModel viewModel = getViewModel();
+        final Question question = getQuestion();
+        final int questionType = QuestionUtils.getQuestionType(question);
 
         ((TextView) view.findViewById(R.id.question)).setText(question.getQuestionText());
         if (question.getImageAsset() != null) {
@@ -82,45 +83,68 @@ public class QuestionFragment extends Fragment {
         if (questionType == QuestionUtils.CHECK_BOX_QUESTION) {
             CheckBoxQuestion checkBoxQuestion = (CheckBoxQuestion) question;
             Map<String, String> checkBoxOptions = checkBoxQuestion.getOptions();
-            List<String> keys = new ArrayList<>(checkBoxOptions.keySet());
-            Collections.shuffle(keys);
+            List<String> keys = checkBoxQuestion.getOptionsOrder();
             LinearLayout parentLayout = view.findViewById(R.id.options);
 
-            for (String key : keys) {
-                // TODO: Add IDs
-                CheckBox checkBox = new CheckBox(getContext());
+            if (getCheckBoxState() == null) {
+                Map<String, Boolean> checkBoxState = new HashMap<>();
+                for (String key : keys) checkBoxState.put(key, false);
+                setCheckBoxState(checkBoxState);
+            }
+
+            for (final String key : keys) {
+                final CheckBox checkBox = new CheckBox(getContext());
+                checkBox.setId(getIdFromKey(key));
                 checkBox.setText(checkBoxOptions.get(key));
+                checkBox.setChecked(getCheckBoxState().get(key));
+                checkBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        boolean newState = !getCheckBoxState().get(key);
+                        getCheckBoxState().put(key, newState);
+                        checkBox.setChecked(newState);
+                    }
+                });
                 checkBox.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
                 parentLayout.addView(checkBox);
             }
+
         } else if (questionType == QuestionUtils.RADIO_BUTTON_QUESTION) {
-            // TODO: Debug the radio buttons
-            // TODO: Add IDs
             RadioButtonQuestion radioQuestion = (RadioButtonQuestion) question;
             Map<String, String> radioOptions = radioQuestion.getOptions();
-            List<String> keys = new ArrayList<>(radioOptions.keySet());
-            Collections.shuffle(keys);
+            List<String> keys = radioQuestion.getOptionsOrder();
             RadioGroup parentLayout = view.findViewById(R.id.options);
 
             for (String key : keys) {
                 RadioButton radio = new RadioButton(getContext());
+                radio.setId(getIdFromKey(key));
                 radio.setText(radioOptions.get(key));
                 parentLayout.addView(radio);
             }
         }
 
-        Button button = view.findViewById(R.id.next_btn);
+        final Button button = view.findViewById(R.id.next_btn);
         final boolean finalQuestion = questionIndex >= viewModel.totalQuestions - 1;
         if (finalQuestion) button.setText(R.string.finish);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Calculate new score and update view model
+                int increment = 0;
+                if (questionType == QuestionUtils.CHECK_BOX_QUESTION) {
+
+                } else if (questionType == QuestionUtils.RADIO_BUTTON_QUESTION) {
+
+                } else {
+
+                }
+                viewModel.score += increment;
+
                 if (finalQuestion) {
                     Intent intent = new Intent(getActivity(), ScoreActivity.class);
+                    intent.putExtra(ScoreActivity.QUIZ_SCORE, viewModel.score);
                     startActivity(intent);
                     getActivity().finish();
                 } else
@@ -140,5 +164,17 @@ public class QuestionFragment extends Fragment {
     private Question getQuestion() {
         int questionIndex = getQuestionIndex();
         return getViewModel().questions.get(questionIndex);
+    }
+
+    private int getIdFromKey(String key) {
+        return getResources().getIdentifier("option_" + key, "id", getActivity().getPackageName());
+    }
+
+    private Map<String, Boolean> getCheckBoxState() {
+        return getViewModel().checkBoxStates.get(getQuestionIndex());
+    }
+
+    private void setCheckBoxState(Map<String, Boolean> checkBoxState) {
+        getViewModel().checkBoxStates.put(getQuestionIndex(), checkBoxState);
     }
 }

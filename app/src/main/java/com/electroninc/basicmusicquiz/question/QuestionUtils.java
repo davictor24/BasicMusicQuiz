@@ -68,18 +68,16 @@ public class QuestionUtils {
             Set<String> answers = jsonArrayToStringSet(answersJson);
 
             String type = questionJson.getString("type");
-            switch (type) {
-                case "checkbox":
-                case "radio":
-                    JSONObject optionsJson = questionJson.getJSONObject("options");
-                    Map<String, String> options = jsonObjectToStringMap(optionsJson);
-                    question = new CheckBoxQuestion(questionText, imageAsset, options, answers);
-                    break;
-                case "text":
-                    question = new TextEntryQuestion(questionText, imageAsset, answers);
-                    break;
-                default:
-                    continue;
+            if (type.equals("checkbox")) {
+                JSONObject optionsJson = questionJson.getJSONObject("options");
+                Map<String, String> options = jsonObjectToStringMap(optionsJson);
+                question = new CheckBoxQuestion(questionText, imageAsset, options, answers);
+            } else if (type.equals("radio")) {
+                JSONObject optionsJson = questionJson.getJSONObject("options");
+                Map<String, String> options = jsonObjectToStringMap(optionsJson);
+                question = new RadioButtonQuestion(questionText, imageAsset, options, answers);
+            } else {
+                question = new TextEntryQuestion(questionText, imageAsset, answers);
             }
             questions.add(question);
         }
