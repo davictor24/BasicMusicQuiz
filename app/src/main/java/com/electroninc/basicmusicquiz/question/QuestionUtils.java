@@ -104,14 +104,14 @@ public class QuestionUtils {
         return map;
     }
 
-    // Utility method for finding set symmetric difference
-    // https://stackoverflow.com/a/8064726/8843822
-    public static <T> Set<T> diff(final Set<? extends T> s1, final Set<? extends T> s2) {
-        Set<T> symmetricDiff = new HashSet<>(s1);
+    public static boolean checkAnswer(Set<String> s1, Set<String> s2) {
+        // Find set symmetric difference
+        // https://stackoverflow.com/a/8064726/8843822
+        Set<String> symmetricDiff = new HashSet<>(s1);
         symmetricDiff.addAll(s2);
-        Set<T> tmp = new HashSet<>(s1);
+        Set<String> tmp = new HashSet<>(s1);
         tmp.retainAll(s2);
         symmetricDiff.removeAll(tmp);
-        return symmetricDiff;
+        return symmetricDiff.size() == 0;
     }
 }

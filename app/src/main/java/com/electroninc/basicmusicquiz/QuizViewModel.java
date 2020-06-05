@@ -15,4 +15,5 @@ public class QuizViewModel extends ViewModel {
     public int totalQuestions = 0;
     public int score = 0;
     public Map<Integer, Map<String, Boolean>> checkBoxStates = new HashMap<>();
+    public Map<Integer, String> radioButtonStates = new HashMap<>();
 }

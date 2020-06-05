@@ -2,12 +2,12 @@ package com.electroninc.basicmusicquiz.question;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -22,8 +22,10 @@ import com.electroninc.basicmusicquiz.question.models.Question;
 import com.electroninc.basicmusicquiz.question.models.RadioButtonQuestion;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -94,7 +96,6 @@ public class QuestionFragment extends Fragment {
 
             for (final String key : keys) {
                 final CheckBox checkBox = new CheckBox(getContext());
-                checkBox.setId(getIdFromKey(key));
                 checkBox.setText(checkBoxOptions.get(key));
                 checkBox.setChecked(getCheckBoxState().get(key));
                 checkBox.setOnClickListener(new View.OnClickListener() {
@@ -112,15 +113,23 @@ public class QuestionFragment extends Fragment {
             }
 
         } else if (questionType == QuestionUtils.RADIO_BUTTON_QUESTION) {
+            // Unlike CheckBox, Android persists RadioButton states across orientation changes
+            // So we don't need to manage state with the ViewModel
+            // Writing to the ViewModel is for storing state for calculation purposes only
             RadioButtonQuestion radioQuestion = (RadioButtonQuestion) question;
             Map<String, String> radioOptions = radioQuestion.getOptions();
             List<String> keys = radioQuestion.getOptionsOrder();
             RadioGroup parentLayout = view.findViewById(R.id.options);
 
-            for (String key : keys) {
+            for (final String key : keys) {
                 RadioButton radio = new RadioButton(getContext());
-                radio.setId(getIdFromKey(key));
                 radio.setText(radioOptions.get(key));
+                radio.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        setRadioButtonState(key);
+                    }
+                });
                 parentLayout.addView(radio);
             }
         }
@@ -132,15 +141,18 @@ public class QuestionFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int increment = 0;
+                Set<String> answers = question.getAnswers();
+                Set<String> givenAnswers = new HashSet<>();
                 if (questionType == QuestionUtils.CHECK_BOX_QUESTION) {
-
+                    for (String key : getCheckBoxState().keySet())
+                        if (getCheckBoxState().get(key)) givenAnswers.add(key);
                 } else if (questionType == QuestionUtils.RADIO_BUTTON_QUESTION) {
-
+                    givenAnswers.add(getRadioButtonState());
                 } else {
-
+                    EditText textAnswer = getActivity().findViewById(R.id.text_answer);
+                    givenAnswers.add(textAnswer.getText().toString());
                 }
-                viewModel.score += increment;
+                if (QuestionUtils.checkAnswer(answers, givenAnswers)) viewModel.score += 1;
 
                 if (finalQuestion) {
                     Intent intent = new Intent(getActivity(), ScoreActivity.class);
@@ -166,15 +178,19 @@ public class QuestionFragment extends Fragment {
         return getViewModel().questions.get(questionIndex);
     }
 
-    private int getIdFromKey(String key) {
-        return getResources().getIdentifier("option_" + key, "id", getActivity().getPackageName());
-    }
-
     private Map<String, Boolean> getCheckBoxState() {
         return getViewModel().checkBoxStates.get(getQuestionIndex());
     }
 
     private void setCheckBoxState(Map<String, Boolean> checkBoxState) {
         getViewModel().checkBoxStates.put(getQuestionIndex(), checkBoxState);
+    }
+
+    private String getRadioButtonState() {
+        return getViewModel().radioButtonStates.get(getQuestionIndex());
+    }
+
+    private void setRadioButtonState(String radioButtonState) {
+        getViewModel().radioButtonStates.put(getQuestionIndex(), radioButtonState);
     }
 }

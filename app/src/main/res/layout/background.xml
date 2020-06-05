@@ -3,6 +3,6 @@
     android:layout_height="match_parent"
     android:contentDescription="@string/background"
     android:scaleType="centerCrop"
-    android:alpha="0.3"
+    android:alpha="0.2"
     android:src="@drawable/music_background"
     xmlns:android="http://schemas.android.com/apk/res/android" />
