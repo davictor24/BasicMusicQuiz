@@ -107,10 +107,10 @@ public class QuestionUtils {
     public static boolean checkAnswer(Set<String> s1, Set<String> s2) { // Pass in any order
         Set<String> sLower1 = new HashSet<>();
         for (String key : s1)
-            if (key != null) sLower1.add(key.toLowerCase());
+            if (key != null) sLower1.add(key.toLowerCase().trim());
         Set<String> sLower2 = new HashSet<>();
         for (String key : s2)
-            if (key != null) sLower2.add(key.toLowerCase());
+            if (key != null) sLower2.add(key.toLowerCase().trim());
 
         Set<String> symmetricDiff = new HashSet<>(sLower1);
         symmetricDiff.addAll(sLower2);

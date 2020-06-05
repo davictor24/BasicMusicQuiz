@@ -16,66 +16,72 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
-        <androidx.cardview.widget.CardView
+        <!-- Required, to prevent some nasty ScrollView and CardView bugs :( -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="16dp"
-            android:minHeight="400dp"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="4dp"
-            card_view:contentPadding="8dp">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
+                android:layout_margin="16dp"
+                android:minHeight="400dp"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:contentPadding="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="8dp"
-                    android:text="@string/you_scored"
-                    android:textSize="28sp" />
-
-                <TextView
-                    android:id="@+id/final_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="8dp"
-                    android:textSize="80sp"
-                    tools:text="8/10" />
-
-                <TextView
-                    android:id="@+id/recommendation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="8dp"
-                    android:textSize="32sp"
-                    tools:text="@string/well_done" />
-
-                <Button
-                    android:id="@+id/play_again_btn"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="@string/play_again"
-                    android:textSize="24sp"
-                    tools:ignore="UnusedAttribute" />
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="8dp"
+                        android:text="@string/you_scored"
+                        android:textSize="28sp" />
 
-        </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/final_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="8dp"
+                        android:textSize="80sp"
+                        tools:text="8/10" />
+
+                    <TextView
+                        android:id="@+id/recommendation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="8dp"
+                        android:textSize="32sp"
+                        tools:text="@string/well_done" />
+
+                    <Button
+                        android:id="@+id/play_again_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@string/play_again"
+                        android:textSize="24sp"
+                        tools:ignore="UnusedAttribute" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </FrameLayout>
 
     </ScrollView>
 

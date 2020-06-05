@@ -37,6 +37,8 @@ public class ScoreActivity extends AppCompatActivity {
         playAgainBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ScoreActivity.this, QuizActivity.class);
+                startActivity(intent);
                 ScoreActivity.this.finish();
             }
         });

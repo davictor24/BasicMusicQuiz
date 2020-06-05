@@ -1,69 +1,88 @@
-<?xml version="1.0" encoding="utf-8"?><!-- TODO: Prevent action bar from overlapping ScrollView -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".activities.ScoreActivity">
 
-    <androidx.cardview.widget.CardView
+    <include
+        layout="@layout/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"
-        android:minHeight="400dp"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="4dp"
-        card_view:contentPadding="8dp">
+        android:layout_centerInParent="true">
 
-        <LinearLayout
+        <!-- Required, to prevent some nasty ScrollView and CardView bugs :( -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/question"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="8dp"
-                tools:text="CheckBox Question"
-                android:textSize="24sp" />
-
-            <ImageView
-                android:id="@+id/image_asset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:src="@mipmap/ic_launcher"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="8dp"
-                android:visibility="gone"
-                android:contentDescription="@string/image_asset" />
-
-            <LinearLayout
-                android:id="@+id/options"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:orientation="vertical" />
+                android:layout_margin="16dp"
+                android:minHeight="400dp"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:contentPadding="8dp">
 
-            <Button
-                android:id="@+id/next_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="@string/next"
-                android:textSize="24sp"
-                tools:ignore="UnusedAttribute" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/question"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="8dp"
+                        android:textSize="24sp"
+                        tools:text="CheckBox Question" />
 
-    </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/image_asset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="8dp"
+                        android:contentDescription="@string/image_asset"
+                        android:visibility="gone"
+                        tools:src="@mipmap/ic_launcher" />
 
-</ScrollView>
+                    <LinearLayout
+                        android:id="@+id/options"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:orientation="vertical" />
+
+                    <Button
+                        android:id="@+id/next_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@string/next"
+                        android:textSize="24sp"
+                        tools:ignore="UnusedAttribute" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </FrameLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
