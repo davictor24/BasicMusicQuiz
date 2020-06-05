@@ -113,9 +113,6 @@ public class QuestionFragment extends Fragment {
             }
 
         } else if (questionType == QuestionUtils.RADIO_BUTTON_QUESTION) {
-            // Unlike CheckBox, Android persists RadioButton states across orientation changes
-            // So we don't need to manage state with the ViewModel
-            // Writing to the ViewModel is for storing state for calculation purposes only
             RadioButtonQuestion radioQuestion = (RadioButtonQuestion) question;
             Map<String, String> radioOptions = radioQuestion.getOptions();
             List<String> keys = radioQuestion.getOptionsOrder();
@@ -124,6 +121,8 @@ public class QuestionFragment extends Fragment {
             for (final String key : keys) {
                 RadioButton radio = new RadioButton(getContext());
                 radio.setText(radioOptions.get(key));
+                // TODO: Are radio button states saved by default?
+                // radio.setChecked(key.equals(getRadioButtonState()));
                 radio.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -157,6 +156,7 @@ public class QuestionFragment extends Fragment {
                 if (finalQuestion) {
                     Intent intent = new Intent(getActivity(), ScoreActivity.class);
                     intent.putExtra(ScoreActivity.QUIZ_SCORE, viewModel.score);
+                    intent.putExtra(ScoreActivity.QUIZ_MAX_SCORE, viewModel.totalQuestions);
                     startActivity(intent);
                     getActivity().finish();
                 } else

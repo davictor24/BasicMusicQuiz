@@ -104,13 +104,18 @@ public class QuestionUtils {
         return map;
     }
 
-    public static boolean checkAnswer(Set<String> s1, Set<String> s2) {
-        // Find set symmetric difference
-        // https://stackoverflow.com/a/8064726/8843822
-        Set<String> symmetricDiff = new HashSet<>(s1);
-        symmetricDiff.addAll(s2);
-        Set<String> tmp = new HashSet<>(s1);
-        tmp.retainAll(s2);
+    public static boolean checkAnswer(Set<String> s1, Set<String> s2) { // Pass in any order
+        Set<String> sLower1 = new HashSet<>();
+        for (String key : s1)
+            if (key != null) sLower1.add(key.toLowerCase());
+        Set<String> sLower2 = new HashSet<>();
+        for (String key : s2)
+            if (key != null) sLower2.add(key.toLowerCase());
+
+        Set<String> symmetricDiff = new HashSet<>(sLower1);
+        symmetricDiff.addAll(sLower2);
+        Set<String> tmp = new HashSet<>(sLower1);
+        tmp.retainAll(sLower2);
         symmetricDiff.removeAll(tmp);
         return symmetricDiff.size() == 0;
     }
