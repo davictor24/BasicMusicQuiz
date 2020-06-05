@@ -37,8 +37,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="8dp"
-                    android:text="@string/great_you_scored"
-                    android:textSize="24sp" />
+                    android:text="@string/you_scored"
+                    android:textSize="28sp" />
 
                 <TextView
                     android:id="@+id/final_score"
@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="8dp"
-                    android:textSize="64sp"
+                    android:textSize="80sp"
                     tools:text="8/10" />
 
                 <TextView
@@ -55,8 +55,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="8dp"
-                    android:textSize="28sp"
-                    tools:text="You can do better!" />
+                    android:textSize="32sp"
+                    tools:text="@string/well_done" />
 
                 <Button
                     android:id="@+id/play_again_btn"
